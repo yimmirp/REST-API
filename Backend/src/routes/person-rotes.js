@@ -39,7 +39,22 @@ router.post('/addUser', async (req, res) => {
     })
 })
 
+//UPDATE
+router.put("/updateUser", async (req, res) => {
+    const { codu, username, firstname, lastname } = req.body;
 
+    sql = "update person set username=:username, firstname=:firstname, lastname=:lastname where codu=:codu";
+
+    await BD.Open(sql, [username, firstname, lastname,codu], true);
+
+    res.status(200).json({
+        "codu": codu,
+        "username": username,
+        "firstname": firstname,
+        "lastname": lastname
+    })
+
+})
 
 
 
