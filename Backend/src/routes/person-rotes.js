@@ -2,13 +2,28 @@ const { Router } = require('express');
 const router = Router();
 const BD = require('../config/configbd');
 
-router.get('/', async (req, res) => {
+//READ
+router.get('/getUsers', async (req, res) => {
     sql = "select * from person where state=1";
 
     let result = await BD.Open(sql, [], false);
-    console.log(result.rows);
-    res.json('TODO OKEII');
+    Users = [];
+
+    result.rows.map(user => {
+        let userSchema = {
+            "codu": user[0],
+            "username": user[1],
+            "firstname": user[2],
+            "lastname": user[3]
+        }
+
+        Users.push(userSchema);
+    })
+
+    res.json(Users);
 })
+
+//CREATE
 
 router.post('/addUser', async (req, res) => {
     const { username, firstname, lastname } = req.body;
@@ -23,6 +38,10 @@ router.post('/addUser', async (req, res) => {
         "lastname": lastname
     })
 })
+
+
+
+
 
 
 module.exports = router;
