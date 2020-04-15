@@ -57,6 +57,16 @@ router.put("/updateUser", async (req, res) => {
 })
 
 
+//DELETE
+router.delete("/deleteUser/:codu", async (req, res) => {
+    const { codu } = req.params;
+
+    sql = "update person set state=0 where codu=:codu";
+
+    await BD.Open(sql, [codu], true);
+
+    res.json({ "msg": "Usuario Eliminado" })
+})
 
 
 module.exports = router;
