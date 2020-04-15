@@ -10,6 +10,19 @@ router.get('/', async (req, res) => {
     res.json('TODO OKEII');
 })
 
+router.post('/addUser', async (req, res) => {
+    const { username, firstname, lastname } = req.body;
+
+    sql = "insert into person(username,firstname,lastname) values (:username,:firstname,:lastname)";
+
+    await BD.Open(sql, [username, firstname, lastname], true);
+
+    res.status(200).json({
+        "username": username,
+        "firstname": firstname,
+        "lastname": lastname
+    })
+})
 
 
 module.exports = router;
