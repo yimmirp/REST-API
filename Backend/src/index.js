@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 
 //imports
-
+const personRoutes = require('./routes/person-rotes');
 
 //settings
 app.set('port', 3000);
@@ -15,11 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
+app.use(personRoutes);
 
-app.get('/', (req, res) => {
-    
-    res.json('TODO OK');
-})
 
 
 //run
